@@ -7,6 +7,7 @@ use xdeanboy\Exceptions\InvalidArgumentException;
 use xdeanboy\Exceptions\NotFoundException;
 use xdeanboy\Exceptions\UnauthorizedException;
 use xdeanboy\Models\ActiveRecordEntity;
+use xdeanboy\Models\Users\User;
 
 class Blog extends ActiveRecordEntity
 {
@@ -178,7 +179,7 @@ class Blog extends ActiveRecordEntity
             switch ($days) {
                 case 1:
                     return $days . ' день назад';
-                case 2 or 3 or 4:
+                case 2 AND 3 AND 4:
                     return $days . ' дні назад';
                 default:
                     return $days . ' днів назад';
@@ -333,5 +334,16 @@ class Blog extends ActiveRecordEntity
         $this->save();
 
         return $this;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function checkLikeByUser(User $user): bool
+    {
+        $checkLike = BlogLikes::checkLikeByPostAndUser($this, $user);
+
+        return !empty($checkLike);
     }
 }

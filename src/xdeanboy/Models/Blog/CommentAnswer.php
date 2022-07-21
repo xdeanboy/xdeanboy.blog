@@ -64,6 +64,14 @@ class CommentAnswer extends ActiveRecordEntity
     /**
      * @return string
      */
+    public function getBeginningText(): string
+    {
+        return mb_substr($this->getText(), 0, 100) . ' ...';
+    }
+
+    /**
+     * @return string
+     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
@@ -111,7 +119,7 @@ class CommentAnswer extends ActiveRecordEntity
             throw new InvalidArgumentException();
         }
 
-        if (!preg_match('~^[АаБбВвГгҐґДдЕеЄєЖжЗзИиІіЇїЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЬьЮюЯя\'\-!?—()/,.:;«»"|\n\r\\s+a-zA-Z0-9]+$~',
+        if (!preg_match('~^[АаБбВвГгҐґДдЕеЄєЖжЗзИиІіЇїЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЬьЮюЯя\'\-!?—()/,.:;=«»"|\n\r\\s+a-zA-Z0-9]+$~',
             trim($text))) {
             throw new InvalidArgumentException(
                 'Текст коментаря містить заборонені символи');
@@ -124,5 +132,39 @@ class CommentAnswer extends ActiveRecordEntity
         $answer->save();
 
         return $answer;
+    }
+
+    /**
+     * @param string $text
+     * @return $this
+     * @throws InvalidArgumentException
+     */
+    public function edit(string $text): self
+    {
+        if (empty($text)) {
+            throw new InvalidArgumentException();
+        }
+
+        if (!preg_match('~^[АаБбВвГгҐґДдЕеЄєЖжЗзИиІіЇїЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЬьЮюЯя\'\-!?—()/,.:;=«»"|\n\r\\s+a-zA-Z0-9]+$~',
+            trim($text))) {
+            throw new InvalidArgumentException(
+                'Текст коментаря містить заборонені символи');
+        }
+
+        $this->setText($text);
+        $this->save();
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function checkLikeByUser(User $user): bool
+    {
+        $checkLike = AnswerLikes::checkLikeByAnswerAndUser($this, $user);
+
+        return !empty($checkLike);
     }
 }

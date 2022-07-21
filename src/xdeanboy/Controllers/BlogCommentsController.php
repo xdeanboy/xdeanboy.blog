@@ -6,9 +6,12 @@ use xdeanboy\Exceptions\ForbiddenException;
 use xdeanboy\Exceptions\InvalidArgumentException;
 use xdeanboy\Exceptions\NotFoundException;
 use xdeanboy\Exceptions\UnauthorizedException;
+use xdeanboy\Models\Blog\AnswerLikes;
 use xdeanboy\Models\Blog\Blog;
 use xdeanboy\Models\Blog\BlogComments;
+use xdeanboy\Models\Blog\BlogLikes;
 use xdeanboy\Models\Blog\CommentAnswer;
+use xdeanboy\Models\Blog\CommentLikes;
 
 class BlogCommentsController extends AbstractController
 {
@@ -61,6 +64,8 @@ class BlogCommentsController extends AbstractController
             throw new NotFoundException();
         }
 
+        $countPostLikes = BlogLikes::countLikesByPost($post);
+
         $comments = BlogComments::findAllByPost($post->getId());
 
         $editComment = BlogComments::getById($commentId);
@@ -73,10 +78,20 @@ class BlogCommentsController extends AbstractController
             throw new ForbiddenException();
         }
 
+
         $commentAnswers = [];
+        $countCommentLikes = [];
+        $countAnswerLikes = [];
 
         foreach ($comments as $comment) {
             $commentAnswers[$comment->getId()] = CommentAnswer::findAllByCommentId($comment->getId());
+            $countCommentLikes[$comment->getId()] = CommentLikes::countLikesByComment($comment);
+
+            if(!empty($commentAnswers)) {
+                foreach ($commentAnswers[$comment->getId()] as $commentAnswer) {
+                    $countAnswerLikes[$commentAnswer->getId()] = AnswerLikes::countLikesByAnswer($commentAnswer);
+                }
+            }
         }
 
         $forbidden = false;
@@ -86,6 +101,10 @@ class BlogCommentsController extends AbstractController
         }
 
         if ($this->user->isAdmin()) {
+            $forbidden = true;
+        }
+
+        if ($this->user->isModerator()) {
             $forbidden = true;
         }
 
@@ -108,6 +127,9 @@ class BlogCommentsController extends AbstractController
                         'comments' => $comments,
                         'editComment' => $editComment,
                         'commentAnswers' => $commentAnswers,
+                        'countPostLikes' => $countPostLikes,
+                        'countCommentLikes' => $countCommentLikes,
+                        'countAnswerLikes' => $countAnswerLikes,
                         'commentError' => $e->getMessage()]);
                 return;
             }
@@ -118,7 +140,10 @@ class BlogCommentsController extends AbstractController
             'post' => $post,
             'comments' => $comments,
             'editComment' => $editComment,
-            'commentAnswers' => $commentAnswers]);
+            'commentAnswers' => $commentAnswers,
+            'countPostLikes' => $countPostLikes,
+            'countCommentLikes' => $countCommentLikes,
+            'countAnswerLikes' => $countAnswerLikes,]);
     }
 
     /**
@@ -158,6 +183,10 @@ class BlogCommentsController extends AbstractController
         }
 
         if ($this->user->isAdmin()) {
+            $forbidden = true;
+        }
+
+        if ($this->user->isModerator()) {
             $forbidden = true;
         }
 
@@ -208,6 +237,10 @@ class BlogCommentsController extends AbstractController
         }
 
         if ($this->user->isAdmin()) {
+            $forbidden = true;
+        }
+
+        if ($this->user->isModerator()) {
             $forbidden = true;
         }
 

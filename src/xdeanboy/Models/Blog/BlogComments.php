@@ -157,4 +157,50 @@ class BlogComments extends ActiveRecordEntity
 
         return $this;
     }
+
+    /**
+     * @param int $postId
+     * @return int
+     */
+    public static function getCountCommentsByPost(int $postId): int
+    {
+        $commentsByPost = self::findAllByPost($postId);
+
+        if($commentsByPost === null) {
+            return 0;
+        }
+
+        $countAnswers = 0;
+        foreach ($commentsByPost as $commentByPost) {
+            $answersByComment = CommentAnswer::findAllByCommentId($commentByPost->getId());
+
+            if (!empty($answersByComment)) {
+                $countAnswers += count($answersByComment);
+            }
+        }
+
+        return count($commentsByPost) + $countAnswers;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function checkLikeByUser(User $user): bool
+    {
+        $checkLike = CommentLikes::checkLikeByCommentAndUser($this, $user);
+
+        return !empty($checkLike);
+    }
+
+    /**
+     * @return Blog|null
+     */
+    public function getPost(): ?Blog
+    {
+        $result = Blog::getById($this->getPostId());
+
+        return !empty($result) ? $result : null;
+
+    }
 }

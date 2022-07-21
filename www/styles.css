@@ -789,8 +789,16 @@ select:hover, select:focus {
     color: #c91b1b;
 }
 
+.like-true:hover {
+    color: white;
+}
+
 .like-false {
     color: #e7dede;
+}
+
+.like-false:hover {
+    color: #c91b1b;
 }
 
 .button-mini {
@@ -830,7 +838,7 @@ select:hover, select:focus {
     border: 2px solid #726666;
 }
 
-#form-post-comment-answer-add textarea{
+#form-post-comment-answer-add textarea, #form-post-comment-answer-edit textarea{
     display: block;
     height: 100px;
     width: 840px;

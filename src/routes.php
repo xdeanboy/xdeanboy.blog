@@ -21,16 +21,25 @@ return [
     '~^post/(\d+)/comment/(\d+)/delete$~' => [\xdeanboy\Controllers\BlogCommentsController::class, 'delete'],
     '~^post/(\d+)/comment/(\d+)/delete-confirmed$~' =>
         [\xdeanboy\Controllers\BlogCommentsController::class, 'deleteConfirmed'],
-    '~^post/(\d+)/comment/(\d+)/edit~' => [\xdeanboy\Controllers\BlogCommentsController::class, 'edit'],
-    '~^post/(\d+)/comment/(\d+)/answer/add~' =>
+    '~^post/(\d+)/comment/(\d+)/edit$~' => [\xdeanboy\Controllers\BlogCommentsController::class, 'edit'],
+    '~^post/(\d+)/comment/(\d+)/answer/add$~' =>
         [\xdeanboy\Controllers\CommentAnswerController::class, 'add'],
-    '~^post/(\d+)/comment/(\d+)/answer/(\d+)/edit~' =>
+    '~^post/(\d+)/comment/(\d+)/answer/(\d+)/add$~' =>
+        [\xdeanboy\Controllers\CommentAnswerController::class, 'addForAnswer'],
+    '~^post/(\d+)/comment/(\d+)/answer/(\d+)/edit$~' =>
         [\xdeanboy\Controllers\CommentAnswerController::class, 'edit'],
-    '~^post/(\d+)/comment/(\d+)/answer/(\d+)/delete~' =>
+    '~^post/(\d+)/comment/(\d+)/answer/(\d+)/delete$~' =>
         [\xdeanboy\Controllers\CommentAnswerController::class, 'delete'],
-    '~^post/(\d+)/comment/(\d+)/answer/(\d+)/delete-confirmed~' =>
+    '~^post/(\d+)/comment/(\d+)/answer/(\d+)/delete-confirmed$~' =>
         [\xdeanboy\Controllers\CommentAnswerController::class, 'deleteConfirmed'],
+    '~^post/(\d+)/like/add$~' => [\xdeanboy\Controllers\BlogLikesController::class, 'add'],
+    '~^post/(\d+)/like/delete$~' => [\xdeanboy\Controllers\BlogLikesController::class, 'delete'],
+    '~^post/(\d+)/like/delete-confirmed$~' => [\xdeanboy\Controllers\BlogLikesController::class, 'deleteConfirmed'],
+    '~^comment/(\d+)/like/add$~' => [\xdeanboy\Controllers\CommentLikesController::class, 'add'],
+    '~^comment/(\d+)/like/delete$~' => [\xdeanboy\Controllers\CommentLikesController::class, 'delete'],
+    '~^comment/(\d+)/like/delete-confirmed$~' => [\xdeanboy\Controllers\CommentLikesController::class, 'deleteConfirmed'],
+    '~^comment/(\d+)/answer/(\d+)/like/add$~' => [\xdeanboy\Controllers\CommentLikesController::class, 'answerAdd'],
+    '~^comment/(\d+)/answer/(\d+)/like/delete$~' => [\xdeanboy\Controllers\CommentLikesController::class, 'answerDelete'],
+    '~^comment/(\d+)/answer/(\d+)/like/delete-confirmed$~' => [\xdeanboy\Controllers\CommentLikesController::class, 'answerDeleteConfirmed'],
     '~^admin-panel$~' => [\xdeanboy\Controllers\AdminControllers\MainController::class, 'main'],
 ];
-
-//добавити функціонал лайки та (коментарі відповідь - редагування, видалення, відповідь)

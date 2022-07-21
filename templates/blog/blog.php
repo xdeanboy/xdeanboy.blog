@@ -35,7 +35,7 @@
                         <div class="post-information-dates">
                             <div class="post-information-date"><?= $post->getCreatedAtDate() ?></div>
                             <ul>
-                                <li class="post-information-dates-ago"><?= $post->getDifferenceCreated()?></li>
+                                <li class="post-information-dates-ago"><?= $post->getDifferenceCreated() ?></li>
                             </ul>
                         </div>
                         <div class="last-post-information-title"><a
@@ -49,11 +49,16 @@
                                 <img src="https://cdn-icons-png.flaticon.com/512/1450/1450338.png" alt="Post image"
                                      class="post-icon">
                             </a>
-                            <div class="post-icon-count"><?= $countCommentsByPost[$post->getId()]?></div>
+                            <div class="post-icon-count"><?= $countCommentsByPost[$post->getId()] ?></div>
                         </div>
                         <div class="post-action-like">
-                            <a href="#"><i class="fa-solid fa-heart like"></i></a>
-                            <div class="post-icon-count">10</div>
+
+                            <? if (!$post->checkLikeByUser($user)): ?>
+                                <a href="/post/<?= $post->getId()?>/like/add"><i class="fa-solid fa-heart like-false"></i></a>
+                            <? else: ?>
+                                <a href="/post/<?= $post->getId()?>/like/delete"><i class="fa-solid fa-heart like-true"></i></a>
+                            <? endif; ?>
+                            <div class="post-icon-count"><?= $countLikes[$post->getId()] ?></div>
                         </div>
                     </div>
                 </div>

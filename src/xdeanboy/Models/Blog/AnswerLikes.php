@@ -8,30 +8,31 @@ use xdeanboy\Exceptions\UnauthorizedException;
 use xdeanboy\Models\ActiveRecordEntity;
 use xdeanboy\Models\Users\User;
 
-class BlogLikes extends ActiveRecordEntity
+class AnswerLikes extends ActiveRecordEntity
 {
-    protected $postId;
+    protected $answerId;
     protected $userId;
     protected $createdAt;
 
     /**
-     * @param int $postId
+     * @param int $answerId
      */
-    public function setPostId(int $postId): void
+    public function setAnswerId(int $answerId): void
     {
-        $this->postId = $postId;
+        $this->answerId = $answerId;
     }
 
     /**
      * @return int
      */
-    public function getPostId(): int
+    public function getAnswerId(): int
     {
-        return $this->postId;
+        return $this->answerId;
     }
 
     /**
      * @param int $userId
+     * @return void
      */
     public function setUserId(int $userId): void
     {
@@ -59,77 +60,17 @@ class BlogLikes extends ActiveRecordEntity
      */
     protected static function getTableName(): string
     {
-        return 'blog_likes';
+        return 'answer_likes';
     }
 
     /**
-     * @param Blog $post
-     * @param User $user
-     * @return void
-     * @throws InvalidArgumentException
-     * @throws NotFoundException
-     * @throws UnauthorizedException
-     */
-    public static function toLike(Blog $post, User $user): void
-    {
-        if (empty($post)) {
-            throw new NotFoundException();
-        }
-
-        if (empty($user)) {
-            throw new UnauthorizedException();
-        }
-
-        $checkLike = self::checkLikeByPostAndUser($post, $user);
-
-        if ($checkLike) {
-            throw new InvalidArgumentException('Ви вже лайкнули цей пост');
-        }
-
-        $like = new BlogLikes();
-        $like->setPostId($post->getId());
-        $like->setUserId($user->getId());
-        $like->save();
-    }
-
-    /**
-     * @param int $postId
-     * @return array|null
-     */
-    public static function findAllByPost(Blog $post): ?array
-    {
-        if (empty($post)) {
-            return null;
-        }
-
-        $result = self::findAllByColumn('post_id', $post->getId());
-
-        return !empty($result) ? $result : null;
-    }
-
-    /**
-     * @param int $postId
-     * @return int
-     */
-    public static function countLikesByPost(Blog $post): ?int
-    {
-        if (empty($post)) {
-            return null;
-        }
-
-        $checkLikes = self::findAllByPost($post);
-
-        return !empty($checkLikes) ? count($checkLikes) : 0;
-    }
-
-    /**
-     * @param Blog $post
+     * @param CommentAnswer $answer
      * @param User $user
      * @return bool
      */
-    public static function checkLikeByPostAndUser(Blog $post, User $user): bool
+    public static function checkLikeByAnswerAndUser(CommentAnswer $answer, User $user): bool
     {
-        if (empty($post)) {
+        if (empty($answer)) {
             return false;
         }
 
@@ -138,19 +79,79 @@ class BlogLikes extends ActiveRecordEntity
         }
 
         $checkLike = self::findOneByColumns(
-            'post_id', 'user_id', $post->getId(), $user->getId());
+            'answer_id', 'user_id', $answer->getId(), $user->getId());
 
         return !empty($checkLike);
     }
 
     /**
-     * @param Blog $post
+     * @param CommentAnswer $answer
+     * @param User $user
+     * @return void
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public static function toLike(CommentAnswer $answer, User $user): void
+    {
+        if (empty($answer)) {
+            throw new NotFoundException();
+        }
+
+        if (empty($user)) {
+            throw new UnauthorizedException();
+        }
+
+        $checkLike = self::checkLikeByAnswerAndUser($answer, $user);
+
+        if ($checkLike) {
+            throw new InvalidArgumentException('Ви вже лайкнули цей пост');
+        }
+
+        $like = new AnswerLikes();
+        $like->setAnswerId($answer->getId());
+        $like->setUserId($user->getId());
+        $like->save();
+    }
+
+    /**
+     * @param CommentAnswer $answer
+     * @return array|null
+     */
+    public static function findAllByAnswer(CommentAnswer $answer): ?array
+    {
+        if (empty($answer)) {
+            return null;
+        }
+
+        $result = self::findAllByColumn('answer_id', $answer->getId());
+
+        return !empty($result) ? $result : null;
+    }
+
+    /**
+     * @param CommentAnswer $answer
+     * @return int
+     */
+    public static function countLikesByAnswer(CommentAnswer $answer): int
+    {
+        if (empty($answer)) {
+            return 0;
+        }
+
+        $checkLikes = self::findAllByAnswer($answer);
+
+        return !empty($checkLikes) ? count($checkLikes) : 0;
+    }
+
+    /**
+     * @param BlogComments $comment
      * @param User $user
      * @return static|null
      */
-    public static function getLikeByPostAndUser(Blog $post, User $user): ?self
+    public static function getLikeByAnswerAndUser(CommentAnswer $answer, User $user): ?self
     {
-        if (empty($post)) {
+        if (empty($answer)) {
             return null;
         }
 
@@ -159,9 +160,8 @@ class BlogLikes extends ActiveRecordEntity
         }
 
         $like = self::findOneByColumns(
-            'post_id', 'user_id', $post->getId(), $user->getId());
+            'answer_id', 'user_id', $answer->getId(), $user->getId());
 
         return !empty($like) ? $like : null;
     }
-
 }

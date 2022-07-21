@@ -6,10 +6,13 @@ use xdeanboy\Exceptions\ForbiddenException;
 use xdeanboy\Exceptions\InvalidArgumentException;
 use xdeanboy\Exceptions\NotFoundException;
 use xdeanboy\Exceptions\UnauthorizedException;
+use xdeanboy\Models\Blog\AnswerLikes;
 use xdeanboy\Models\Blog\Blog;
 use xdeanboy\Models\Blog\BlogComments;
+use xdeanboy\Models\Blog\BlogLikes;
 use xdeanboy\Models\Blog\BlogSections;
 use xdeanboy\Models\Blog\CommentAnswer;
+use xdeanboy\Models\Blog\CommentLikes;
 
 class BlogController extends AbstractController
 {
@@ -31,6 +34,9 @@ class BlogController extends AbstractController
             throw new NotFoundException('Пост не знайдено');
         }
 
+        $postLikes = BlogLikes::findAllByPost($post);
+        $countPostLikes = BlogLikes::countLikesByPost($post);
+
         try {
             $comments = BlogComments::findAllByPost($post->getId());
 
@@ -39,21 +45,34 @@ class BlogController extends AbstractController
             }
 
             $commentAnswers = [];
+            $countCommentLikes = [];
+            $countAnswerLikes = [];
 
             foreach ($comments as $comment) {
                 $commentAnswers[$comment->getId()] = CommentAnswer::findAllByCommentId($comment->getId());
+                $countCommentLikes[$comment->getId()] = CommentLikes::countLikesByComment($comment);
+
+                if (!empty($commentAnswers)) {
+                    foreach ($commentAnswers[$comment->getId()] as $commentAnswer) {
+                        $countAnswerLikes[$commentAnswer->getId()] = AnswerLikes::countLikesByAnswer($commentAnswer);
+                    }
+                }
             }
 
             $this->view->renderHtml('blog/post.php',
                 ['title' => 'Пост ' . $postId,
                     'post' => $post,
                     'comments' => $comments,
-                    'commentAnswers' => $commentAnswers]);
+                    'commentAnswers' => $commentAnswers,
+                    'countPostLikes' => $countPostLikes,
+                    'countCommentLikes' => $countCommentLikes,
+                    'countAnswerLikes' => $countAnswerLikes]);
             return;
         } catch (NotFoundException $e) {
             $this->view->renderHtml('blog/post.php',
                 ['title' => 'Пост ' . $postId,
                     'post' => $post,
+                    'countPostLikes' => $countPostLikes,
                     'error' => $e->getMessage()]);
             return;
         }

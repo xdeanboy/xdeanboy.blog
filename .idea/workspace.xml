@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dab5bd28-ca2f-4941-8222-c8b776e9cc18" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Controllers/BlogCommentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Controllers/BlogCommentsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Controllers/BlogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Controllers/BlogController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Controllers/CommentAnswerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Controllers/CommentAnswerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Controllers/MainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Models/ActiveRecordEntity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Models/ActiveRecordEntity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Models/Blog/Blog.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Models/Blog/Blog.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Models/Blog/BlogComments.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Models/Blog/BlogComments.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Models/Blog/BlogLikes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Models/Blog/BlogLikes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xdeanboy/Models/Blog/CommentAnswer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/xdeanboy/Models/Blog/CommentAnswer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog/blog.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog/blog.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog/comment/answer/addCommentAnswer.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog/comment/answer/addCommentAnswer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog/comment/answer/viewCommentAnswer.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog/comment/answer/viewCommentAnswer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog/comment/editComment.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog/comment/editComment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog/comment/editPostComment.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog/comment/editPostComment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog/comment/viewPostComment.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog/comment/viewPostComment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog/post.php" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog/post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/styles.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2AcIuCcQojLAy8P7tpKKYu8ISWe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/OpenServer/domains/xdeanboy.blog&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\OpenServer\domains\xdeanboy.blog\templates\blog" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\OpenServer\domains\xdeanboy.blog\templates\blog\comment\answer" />
+      <recent name="D:\OpenServer\domains\xdeanboy.blog\src\xdeanboy\Models\Blog" />
+      <recent name="D:\OpenServer\domains\xdeanboy.blog\src\xdeanboy\Models\Comments" />
+      <recent name="D:\OpenServer\domains\xdeanboy.blog\templates\blog\comment" />
+      <recent name="D:\OpenServer\domains\xdeanboy.blog\templates\email" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dab5bd28-ca2f-4941-8222-c8b776e9cc18" name="Changes" comment="" />
+      <created>1655302671320</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1655302671320</updated>
+      <workItem from="1655302674874" duration="11640000" />
+      <workItem from="1655405814688" duration="21000" />
+      <workItem from="1656148976285" duration="29429000" />
+      <workItem from="1656408933504" duration="11971000" />
+      <workItem from="1656616534861" duration="4986000" />
+      <workItem from="1656769335765" duration="7209000" />
+      <workItem from="1656840083524" duration="14979000" />
+      <workItem from="1656962897727" duration="4272000" />
+      <workItem from="1657011092299" duration="5252000" />
+      <workItem from="1657098553809" duration="8387000" />
+      <workItem from="1657273292259" duration="16444000" />
+      <workItem from="1657362965074" duration="5696000" />
+      <workItem from="1657457957856" duration="2788000" />
+      <workItem from="1657464785801" duration="8702000" />
+      <workItem from="1657543773612" duration="13000" />
+      <workItem from="1657703053388" duration="11827000" />
+      <workItem from="1657718193197" duration="8904000" />
+      <workItem from="1657802832522" duration="10454000" />
+      <workItem from="1657965085371" duration="4622000" />
+      <workItem from="1657981092881" duration="6044000" />
+      <workItem from="1658051580454" duration="543000" />
+      <workItem from="1658052183253" duration="7167000" />
+      <workItem from="1658167423310" duration="5719000" />
+      <workItem from="1658225566051" duration="4484000" />
+      <workItem from="1658254657057" duration="5874000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

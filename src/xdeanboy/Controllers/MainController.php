@@ -8,6 +8,7 @@ use xdeanboy\Exceptions\NotFoundException;
 use xdeanboy\Exceptions\UnauthorizedException;
 use xdeanboy\Models\Blog\Blog;
 use xdeanboy\Models\Blog\BlogComments;
+use xdeanboy\Models\Blog\BlogLikes;
 use xdeanboy\Models\Blog\BlogSections;
 use xDeanBoy\Models\Messages\FromUnauthorized\MessagesFromUnauthorized;
 use xdeanboy\Services\EmailSender;
@@ -63,14 +64,14 @@ class MainController extends AbstractController
 
             foreach ($posts as $post) {
                 $comments[$post->getId()] = BlogComments::findAllByPost($post->getId());
+                $likes[$post->getId()] = BlogLikes::findAllByPost($post);
+                $countlikes[$post->getId()] = BlogLikes::countLikesByPost($post);
             }
-
-            $countCommentsByPost = [];
 
             if (!empty($comments)) {
                 foreach ($comments as $postId => $commentsByPost) {
                     if (!empty($commentsByPost)) {
-                        $countCommentsByPost[$postId] = count($commentsByPost);
+                        $countCommentsByPost[$postId] = BlogComments::getCountCommentsByPost($postId);
                     } else {
                         $countCommentsByPost[$postId] = 0;
                     }
@@ -81,18 +82,23 @@ class MainController extends AbstractController
                 ['title' => 'Блог xdeanboy',
                     'sections' => $sections,
                     'posts' => $posts,
-                    'countCommentsByPost' => $countCommentsByPost]);
+                    'countCommentsByPost' => $countCommentsByPost,
+                    'countLikes' => $countlikes]);
             return;
         } catch (InvalidArgumentException $e) {
             $this->view->renderHtml('blog/blog.php',
                 ['title' => 'Блог xdeanboy',
                     'sections' => $sections,
+                    'countCommentsByPost' => $countCommentsByPost,
+                    'countLikes' => $countlikes,
                     'error' => $e->getMessage()]);
             return;
         }
     }
 
-
+    /**
+     * @return void
+     */
     public function sendMe(): void
     {
         try {
@@ -120,6 +126,12 @@ class MainController extends AbstractController
         }
     }
 
+    /**
+     * For test renderHtml
+     * @return void
+     * @throws ForbiddenException
+     * @throws UnauthorizedException
+     */
     public function test(): void
     {
         if (empty($this->user)) {

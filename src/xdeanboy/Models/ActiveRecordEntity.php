@@ -205,7 +205,27 @@ abstract class ActiveRecordEntity
     {
         $db = Db::getInstance();
 
-        $sql = 'SELECT * FROM ' . static::getTableName() . ' WHERE ' . $columnName . ' = :value ORDER BY `'. $orderColumn .'` DESC;';
+        $sql = 'SELECT * FROM ' . static::getTableName() . ' WHERE ' . $columnName . ' = :value ORDER BY `' . $orderColumn . '` DESC;';
+
+        $result = $db->query($sql, [':value' => $value], static::class);
+
+        if (empty($result)) {
+            return null;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $columnName
+     * @param $value
+     * @return array|null
+     */
+    public static function findAllByColumn(string $columnName, $value): ?array
+    {
+        $db = Db::getInstance();
+
+        $sql = 'SELECT * FROM ' . static::getTableName() . ' WHERE ' . $columnName . ' = :value ;';
 
         $result = $db->query($sql, [':value' => $value], static::class);
 
@@ -229,6 +249,10 @@ abstract class ActiveRecordEntity
             static::class);
     }
 
+    /**
+     * @param string $columnName
+     * @return array|null
+     */
     public static function findAllByDesc(string $columnName): ?array
     {
         $db = Db::getInstance();
@@ -237,6 +261,21 @@ abstract class ActiveRecordEntity
         $result = $db->query($sql, [], static::class);
 
         return !empty($result) ? $result : null;
+    }
+
+    public static function findOneByColumns(string $firstColumn, string $secondColumn, $firstValue, $secondValue): ?self
+    {
+        $db = Db::getInstance();
+
+        $where = $firstColumn . ' = :first AND ' . $secondColumn . ' = :second';
+        $sql = 'SELECT * FROM ' . static::getTableName() . ' WHERE ' . $where . ' LIMIT 1;';
+
+        $result = $db->query($sql,
+            [':first' => $firstValue,
+                ':second' => $secondValue],
+            static::class);
+
+        return $result ? $result[0] : null;
     }
 
 }
